@@ -17,7 +17,12 @@ expr: IDENTIFIER
     | NUMBER
     | STRING
     | expr operator expr
-    | '(' expr ')';
+    | '(' expr ')'
+    | '[' list ']';
+
+// Define the layout for a list
+list: expr ',' list
+    | expr;
 
 // Match a basic identifier (variable name)
 IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
@@ -26,7 +31,7 @@ IDENTIFIER: [a-zA-Z_][a-zA-Z_0-9]*;
 NUMBER: [0-9]+('.'[0-9]+)?;
 
 // Define a string literal (can be single or double quoted)
-STRING: '"' .*? '"';
+STRING: '"' .*? '"' | '\'' .*? '\'';
 
 // Define arithmetic operators
 operator: '+' | '-' | '*' | '/' | '=' | '%';

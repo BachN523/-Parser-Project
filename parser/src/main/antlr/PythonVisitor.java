@@ -41,6 +41,12 @@ public interface PythonVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(PythonParser.ExprContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#list}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitList(PythonParser.ListContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
