@@ -5,7 +5,7 @@ import main.antlr.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Hardcoded file path
-        String filePath = "src\\project_deliverable_1.py";
+        String filePath = "C:\\Users\\DJ\\IdeaProjects\\-Parser-Project\\parser\\src\\project_deliverable_1.py";
 
         // Create lexer and parser instances
         PythonLexer lexer = new PythonLexer(CharStreams.fromFileName(filePath));
