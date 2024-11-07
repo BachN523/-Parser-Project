@@ -1,17 +1,20 @@
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+import main.antlr.*;
+
 public class Main {
-    public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+    public static void main(String[] args) throws Exception {
+        // Hardcoded file path
+        String filePath = "src\\project_deliverable_1.py";
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        // Create lexer and parser instances
+        PythonLexer lexer = new PythonLexer(CharStreams.fromFileName(filePath));
+        PythonParser parser = new PythonParser(new CommonTokenStream(lexer));
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        // Parse the input using the 'assignment' rule (since no 'program' rule exists)
+        ParseTree tree = parser.assignment();
+
+        // Print the parse tree (for debugging/validation purposes)
+        System.out.println(tree.toStringTree(parser));
     }
 }
