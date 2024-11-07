@@ -1,5 +1,11 @@
 grammar Python;
 
+// Start rule to match a program (multiple assignments or statements)
+program: statement+;
+
+// A statement can be an assignment or other statements (extendable)
+statement: assignment;
+
 // Single rule to match an assignment
 assignment: IDENTIFIER '=' expr;
 
@@ -23,7 +29,7 @@ STRING: '"' .*? '"';
 operator: '+' | '-' | '*' | '/' | '=';
 
 // Define comments that start with # and go to the end of the line
-COMMENT: '#' .*? '\r'? '\n' -> skip;
+COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of the line
 
 // Skip whitespace
 WS: [ \t\r\n]+ -> skip;

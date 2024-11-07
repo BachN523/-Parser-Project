@@ -11,6 +11,18 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface PythonVisitor<T> extends ParseTreeVisitor<T> {
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#program}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProgram(PythonParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PythonParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(PythonParser.StatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#assignment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

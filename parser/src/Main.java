@@ -12,7 +12,7 @@ public class Main {
         PythonParser parser = new PythonParser(new CommonTokenStream(lexer));
 
         // Parse the input using the 'assignment' rule (since no 'program' rule exists)
-        ParseTree tree = parser.assignment();
+        ParseTree tree = parser.program();
 
         // Print the parse tree (for debugging/validation purposes)
         System.out.println(tree.toStringTree(parser));

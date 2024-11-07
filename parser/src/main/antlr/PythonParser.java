@@ -20,10 +20,11 @@ public class PythonParser extends Parser {
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, IDENTIFIER=8, 
 		NUMBER=9, STRING=10, COMMENT=11, WS=12;
 	public static final int
-		RULE_assignment = 0, RULE_expr = 1, RULE_operator = 2;
+		RULE_program = 0, RULE_statement = 1, RULE_assignment = 2, RULE_expr = 3, 
+		RULE_operator = 4;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"assignment", "expr", "operator"
+			"program", "statement", "assignment", "expr", "operator"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -92,6 +93,112 @@ public class PythonParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
+	public static class ProgramContext extends ParserRuleContext {
+		public List<StatementContext> statement() {
+			return getRuleContexts(StatementContext.class);
+		}
+		public StatementContext statement(int i) {
+			return getRuleContext(StatementContext.class,i);
+		}
+		public ProgramContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_program; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonListener ) ((PythonListener)listener).enterProgram(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonListener ) ((PythonListener)listener).exitProgram(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonVisitor ) return ((PythonVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ProgramContext program() throws RecognitionException {
+		ProgramContext _localctx = new ProgramContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_program);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(11); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				{
+				setState(10);
+				statement();
+				}
+				}
+				setState(13); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==IDENTIFIER );
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class StatementContext extends ParserRuleContext {
+		public AssignmentContext assignment() {
+			return getRuleContext(AssignmentContext.class,0);
+		}
+		public StatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_statement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonListener ) ((PythonListener)listener).enterStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof PythonListener ) ((PythonListener)listener).exitStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof PythonVisitor ) return ((PythonVisitor<? extends T>)visitor).visitStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StatementContext statement() throws RecognitionException {
+		StatementContext _localctx = new StatementContext(_ctx, getState());
+		enterRule(_localctx, 2, RULE_statement);
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(15);
+			assignment();
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
 	public static class AssignmentContext extends ParserRuleContext {
 		public TerminalNode IDENTIFIER() { return getToken(PythonParser.IDENTIFIER, 0); }
 		public ExprContext expr() {
@@ -118,15 +225,15 @@ public class PythonParser extends Parser {
 
 	public final AssignmentContext assignment() throws RecognitionException {
 		AssignmentContext _localctx = new AssignmentContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_assignment);
+		enterRule(_localctx, 4, RULE_assignment);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(6);
+			setState(17);
 			match(IDENTIFIER);
-			setState(7);
+			setState(18);
 			match(T__0);
-			setState(8);
+			setState(19);
 			expr(0);
 			}
 		}
@@ -183,40 +290,40 @@ public class PythonParser extends Parser {
 		int _parentState = getState();
 		ExprContext _localctx = new ExprContext(_ctx, _parentState);
 		ExprContext _prevctx = _localctx;
-		int _startState = 2;
-		enterRecursionRule(_localctx, 2, RULE_expr, _p);
+		int _startState = 6;
+		enterRecursionRule(_localctx, 6, RULE_expr, _p);
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(18);
+			setState(29);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				{
-				setState(11);
+				setState(22);
 				match(IDENTIFIER);
 				}
 				break;
 			case NUMBER:
 				{
-				setState(12);
+				setState(23);
 				match(NUMBER);
 				}
 				break;
 			case STRING:
 				{
-				setState(13);
+				setState(24);
 				match(STRING);
 				}
 				break;
 			case T__1:
 				{
-				setState(14);
+				setState(25);
 				match(T__1);
-				setState(15);
+				setState(26);
 				expr(0);
-				setState(16);
+				setState(27);
 				match(T__2);
 				}
 				break;
@@ -224,9 +331,9 @@ public class PythonParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(26);
+			setState(37);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -235,18 +342,18 @@ public class PythonParser extends Parser {
 					{
 					_localctx = new ExprContext(_parentctx, _parentState);
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(20);
+					setState(31);
 					if (!(precpred(_ctx, 2))) throw new FailedPredicateException(this, "precpred(_ctx, 2)");
-					setState(21);
+					setState(32);
 					operator();
-					setState(22);
+					setState(33);
 					expr(3);
 					}
 					} 
 				}
-				setState(28);
+				setState(39);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
 			}
 			}
 		}
@@ -284,12 +391,12 @@ public class PythonParser extends Parser {
 
 	public final OperatorContext operator() throws RecognitionException {
 		OperatorContext _localctx = new OperatorContext(_ctx, getState());
-		enterRule(_localctx, 4, RULE_operator);
+		enterRule(_localctx, 8, RULE_operator);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(29);
+			setState(40);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 242L) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -314,7 +421,7 @@ public class PythonParser extends Parser {
 
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 1:
+		case 3:
 			return expr_sempred((ExprContext)_localctx, predIndex);
 		}
 		return true;
@@ -328,29 +435,34 @@ public class PythonParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\f \u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0001\u0000\u0001\u0000\u0001\u0000\u0001\u0000\u0001"+
-		"\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0003\u0001\u0013\b\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0005\u0001\u0019\b\u0001\n\u0001\f\u0001\u001c\t\u0001"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0000\u0001\u0002\u0003\u0000\u0002"+
-		"\u0004\u0000\u0001\u0002\u0000\u0001\u0001\u0004\u0007 \u0000\u0006\u0001"+
-		"\u0000\u0000\u0000\u0002\u0012\u0001\u0000\u0000\u0000\u0004\u001d\u0001"+
-		"\u0000\u0000\u0000\u0006\u0007\u0005\b\u0000\u0000\u0007\b\u0005\u0001"+
-		"\u0000\u0000\b\t\u0003\u0002\u0001\u0000\t\u0001\u0001\u0000\u0000\u0000"+
-		"\n\u000b\u0006\u0001\uffff\uffff\u0000\u000b\u0013\u0005\b\u0000\u0000"+
-		"\f\u0013\u0005\t\u0000\u0000\r\u0013\u0005\n\u0000\u0000\u000e\u000f\u0005"+
-		"\u0002\u0000\u0000\u000f\u0010\u0003\u0002\u0001\u0000\u0010\u0011\u0005"+
-		"\u0003\u0000\u0000\u0011\u0013\u0001\u0000\u0000\u0000\u0012\n\u0001\u0000"+
-		"\u0000\u0000\u0012\f\u0001\u0000\u0000\u0000\u0012\r\u0001\u0000\u0000"+
-		"\u0000\u0012\u000e\u0001\u0000\u0000\u0000\u0013\u001a\u0001\u0000\u0000"+
-		"\u0000\u0014\u0015\n\u0002\u0000\u0000\u0015\u0016\u0003\u0004\u0002\u0000"+
-		"\u0016\u0017\u0003\u0002\u0001\u0003\u0017\u0019\u0001\u0000\u0000\u0000"+
-		"\u0018\u0014\u0001\u0000\u0000\u0000\u0019\u001c\u0001\u0000\u0000\u0000"+
-		"\u001a\u0018\u0001\u0000\u0000\u0000\u001a\u001b\u0001\u0000\u0000\u0000"+
-		"\u001b\u0003\u0001\u0000\u0000\u0000\u001c\u001a\u0001\u0000\u0000\u0000"+
-		"\u001d\u001e\u0007\u0000\u0000\u0000\u001e\u0005\u0001\u0000\u0000\u0000"+
-		"\u0002\u0012\u001a";
+		"\u0004\u0001\f+\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0001"+
+		"\u0000\u0004\u0000\f\b\u0000\u000b\u0000\f\u0000\r\u0001\u0001\u0001\u0001"+
+		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0003\u0001\u0003"+
+		"\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0003\u0003\u001e\b\u0003\u0001\u0003\u0001\u0003\u0001\u0003\u0001\u0003"+
+		"\u0005\u0003$\b\u0003\n\u0003\f\u0003\'\t\u0003\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0000\u0001\u0006\u0005\u0000\u0002\u0004\u0006\b\u0000\u0001"+
+		"\u0002\u0000\u0001\u0001\u0004\u0007*\u0000\u000b\u0001\u0000\u0000\u0000"+
+		"\u0002\u000f\u0001\u0000\u0000\u0000\u0004\u0011\u0001\u0000\u0000\u0000"+
+		"\u0006\u001d\u0001\u0000\u0000\u0000\b(\u0001\u0000\u0000\u0000\n\f\u0003"+
+		"\u0002\u0001\u0000\u000b\n\u0001\u0000\u0000\u0000\f\r\u0001\u0000\u0000"+
+		"\u0000\r\u000b\u0001\u0000\u0000\u0000\r\u000e\u0001\u0000\u0000\u0000"+
+		"\u000e\u0001\u0001\u0000\u0000\u0000\u000f\u0010\u0003\u0004\u0002\u0000"+
+		"\u0010\u0003\u0001\u0000\u0000\u0000\u0011\u0012\u0005\b\u0000\u0000\u0012"+
+		"\u0013\u0005\u0001\u0000\u0000\u0013\u0014\u0003\u0006\u0003\u0000\u0014"+
+		"\u0005\u0001\u0000\u0000\u0000\u0015\u0016\u0006\u0003\uffff\uffff\u0000"+
+		"\u0016\u001e\u0005\b\u0000\u0000\u0017\u001e\u0005\t\u0000\u0000\u0018"+
+		"\u001e\u0005\n\u0000\u0000\u0019\u001a\u0005\u0002\u0000\u0000\u001a\u001b"+
+		"\u0003\u0006\u0003\u0000\u001b\u001c\u0005\u0003\u0000\u0000\u001c\u001e"+
+		"\u0001\u0000\u0000\u0000\u001d\u0015\u0001\u0000\u0000\u0000\u001d\u0017"+
+		"\u0001\u0000\u0000\u0000\u001d\u0018\u0001\u0000\u0000\u0000\u001d\u0019"+
+		"\u0001\u0000\u0000\u0000\u001e%\u0001\u0000\u0000\u0000\u001f \n\u0002"+
+		"\u0000\u0000 !\u0003\b\u0004\u0000!\"\u0003\u0006\u0003\u0003\"$\u0001"+
+		"\u0000\u0000\u0000#\u001f\u0001\u0000\u0000\u0000$\'\u0001\u0000\u0000"+
+		"\u0000%#\u0001\u0000\u0000\u0000%&\u0001\u0000\u0000\u0000&\u0007\u0001"+
+		"\u0000\u0000\u0000\'%\u0001\u0000\u0000\u0000()\u0007\u0000\u0000\u0000"+
+		")\t\u0001\u0000\u0000\u0000\u0003\r\u001d%";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
