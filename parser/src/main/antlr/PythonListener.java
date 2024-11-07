@@ -38,6 +38,16 @@ public interface PythonListener extends ParseTreeListener {
 	 */
 	void exitAssignment(PythonParser.AssignmentContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PythonParser#assignOps}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignOps(PythonParser.AssignOpsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PythonParser#assignOps}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignOps(PythonParser.AssignOpsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PythonParser#expr}.
 	 * @param ctx the parse tree
 	 */

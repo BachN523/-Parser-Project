@@ -7,7 +7,10 @@ program: statement+;
 statement: assignment;
 
 // Single rule to match an assignment
-assignment: IDENTIFIER '=' expr;
+assignment: IDENTIFIER assignOps expr;
+
+// Define the assignment operators
+assignOps: '=' | '+=' | '-=' | '*=' | '/=';
 
 // Define an expression that can be an identifier, number, string, or more complex expressions
 expr: IDENTIFIER
@@ -26,7 +29,7 @@ NUMBER: [0-9]+('.'[0-9]+)?;
 STRING: '"' .*? '"';
 
 // Define arithmetic operators
-operator: '+' | '-' | '*' | '/' | '=';
+operator: '+' | '-' | '*' | '/' | '=' | '%';
 
 // Define comments that start with # and go to the end of the line
 COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of the line

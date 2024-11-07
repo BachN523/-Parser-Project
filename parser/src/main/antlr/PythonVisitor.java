@@ -29,6 +29,12 @@ public interface PythonVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssignment(PythonParser.AssignmentContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PythonParser#assignOps}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignOps(PythonParser.AssignOpsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PythonParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
