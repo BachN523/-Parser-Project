@@ -4,13 +4,27 @@ grammar Python;
 program: statement+;
 
 // A statement can be an assignment or other statements (extendable)
-statement: assignment;
+statement: assignment | conditional;
 
 // Single rule to match an assignment
 assignment: IDENTIFIER assignOps expr;
 
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
+
+conditional: 'if' condition 'then' statement ('else' statement)?;
+
+// Define a condition that can be a comparison or logical expression
+condition: expr comparisonOp expr
+         | condition logicalOp condition
+         | 'not' condition
+         | '(' condition ')';
+
+// Define comparison operators
+comparisonOp: '<' | '<=' | '>' | '>=' | '==' | '!=';
+
+// Define logical operators
+logicalOp: 'and' | 'or';
 
 // Define an expression that can be an identifier, number, string, or more complex expressions
 expr: IDENTIFIER
