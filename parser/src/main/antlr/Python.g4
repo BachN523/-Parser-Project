@@ -12,7 +12,7 @@ assignment: IDENTIFIER assignOps expr;
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
 
-conditional: 'if' condition 'then' statement ('else' statement)?;
+conditional: 'if' condition ':' statement ('else' ':' statement)?;
 
 // Define a condition that can be a comparison or logical expression
 condition: expr comparisonOp expr
