@@ -12,20 +12,6 @@ assignment: IDENTIFIER assignOps expr;
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
 
-conditional: 'if' condition ':' statement ('else' ':' statement)?;
-
-// Define a condition that can be a comparison or logical expression
-condition: expr comparisonOp expr
-         | condition logicalOp condition
-         | 'not' condition
-         | '(' condition ')';
-
-// Define comparison operators
-comparisonOp: '<' | '<=' | '>' | '>=' | '==' | '!=';
-
-// Define logical operators
-logicalOp: 'and' | 'or';
-
 // Define an expression that can be an identifier, number, string, or more complex expressions
 expr: IDENTIFIER
     | NUMBER
@@ -56,3 +42,17 @@ COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of th
 
 // Skip whitespace
 WS: [ \t\r\n]+ -> skip;
+
+conditional: 'if' condition ':' statement ('else' ':' statement)?;
+
+// Define a condition that can be a comparison or logical expression
+condition: expr comparisonOp expr
+         | condition logicalOp condition
+         | 'not' condition
+         | '(' condition ')';
+
+// Define comparison operators
+comparisonOp: '<' | '<=' | '>' | '>=' | '==' | '!=';
+
+// Define logical operators
+logicalOp: 'and' | 'or';
