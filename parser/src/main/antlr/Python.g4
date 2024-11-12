@@ -43,7 +43,7 @@ COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of th
 // Skip whitespace
 WS: [ \t\r\n]+ -> skip;
 
-conditional: 'if' condition ':' statement ('else' ':' statement)?;
+conditional: 'if' condition ':' statement ('elif' condition ':' statement)* ('else' ':' statement)?;
 
 // Define a condition that can be a comparison or logical expression
 condition: expr comparisonOp expr
