@@ -9,6 +9,8 @@ statement: assignment | conditional;
 // Single rule to match an assignment
 assignment: IDENTIFIER assignOps expr;
 
+block: (assignment)*;
+
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
 
