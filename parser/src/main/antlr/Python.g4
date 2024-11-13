@@ -9,7 +9,7 @@ statement: assignment | conditional;
 // Single rule to match an assignment
 assignment: IDENTIFIER assignOps expr;
 
-block: (assignment)*;
+block: (assignment | conditional)*;
 
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
@@ -45,7 +45,7 @@ COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of th
 // Skip whitespace
 WS: [ \t\r\n]+ -> skip;
 
-conditional: 'if' condition ':' statement ('elif' condition ':' statement)* ('else' ':' statement)?;
+conditional: 'if' condition ':' block ('elif' condition ':' block)* ('else' ':' block)?;
 
 // Define a condition that can be a comparison or logical expression
 condition: expr comparisonOp expr
