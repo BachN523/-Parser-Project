@@ -4,10 +4,11 @@ grammar Python;
 program: statement+;
 
 // A statement can be an assignment or other statements (extendable)
-statement: assignment;
+statement: assignment | conditional;
 
 // Single rule to match an assignment
 assignment: IDENTIFIER assignOps expr;
+
 
 // Define the assignment operators
 assignOps: '=' | '+=' | '-=' | '*=' | '/=';
@@ -42,3 +43,17 @@ COMMENT: '#' ~[\r\n]* -> skip;  // Skip everything after '#' until the end of th
 
 // Skip whitespace
 WS: [ \t\r\n]+ -> skip;
+
+conditional: 'if' condition ':' (assignment)* ('elif' condition ':' (assignment*)* ('else' ':' (assignment)*)?;
+
+// Define a condition that can be a comparison or logical expression
+condition: expr comparisonOp expr
+         | condition logicalOp condition
+         | 'not' condition
+         | '(' condition ')';
+
+// Define comparison operators
+comparisonOp: '<' | '<=' | '>' | '>=' | '==' | '!=';
+
+// Define logical operators
+logicalOp: 'and' | 'or';
