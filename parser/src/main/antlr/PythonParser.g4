@@ -6,7 +6,7 @@ options {
 }
 
 // Parser Rules
-program: (statement NEWLINE?)* EOF;
+program: statement+ EOF;
 
 statement: conditional
          | assignment
@@ -14,7 +14,6 @@ statement: conditional
          | COMMENT
          | MULTI_LINE_COMMENT
          | rangeCall
-         | NEWLINE
          | INDENT statement;
 
 // Assignment rule (only match if identifier is followed by assignment operator)
@@ -33,19 +32,20 @@ operator: PLUS | MINUS | MUL | DIV | MOD;
 
 list: LBRACK (expr (COMMA expr)*)? RBRACK;
 
-conditional: IF condition COLON NEWLINE content
-             (ELIF condition COLON NEWLINE content)*
-             (ELSE COLON NEWLINE content)?;
+conditional: IF condition COLON block
+             (ELIF condition COLON block)*
+             (ELSE COLON block)?;
 
-content: INDENT statement+ DEDENT;
+block: INDENT statement next_block*;
+next_block: block | INDENT block;
 
 // Loop structures
 loop: whileLoop | forLoop;
 
-whileLoop: WHILE condition COLON NEWLINE content;
+whileLoop: WHILE condition COLON block;
 
-forLoop: FOR IDENTIFIER IN rangeCall COLON NEWLINE content |
-            FOR IDENTIFIER IN expr COLON NEWLINE content;
+forLoop: FOR IDENTIFIER IN rangeCall COLON block |
+            FOR IDENTIFIER IN expr COLON block;
 
 // Condition expression
 condition: expr comparisonOp expr
