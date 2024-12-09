@@ -39,7 +39,7 @@ conditional: IF condition COLON block
 conditions: IF | ELIF | ELSE;
 
 block: INDENT statement next_block*;
-next_block: block | INDENT block | block INDENT;
+next_block: block | block INDENT;
 
 // Loop structures
 loop: whileLoop | forLoop;
