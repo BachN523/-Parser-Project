@@ -10,7 +10,6 @@ tokens { DEDENT }
 WS: [ \n\r]+ -> skip;
 
 INDENT: [\t]+; // Placeholder
-DEDENT: 'DEDENT';  // token
 
 NUMBER: '-'? [0-9]+('.'[0-9]+)?;
 STRING: '"' .*? '"' | '\'' .*? '\'';

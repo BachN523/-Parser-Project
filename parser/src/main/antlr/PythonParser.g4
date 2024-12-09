@@ -36,8 +36,10 @@ conditional: IF condition COLON block
              (ELIF condition COLON block)*
              (ELSE COLON block)?;
 
+conditions: IF | ELIF | ELSE;
+
 block: INDENT statement next_block*;
-next_block: block | INDENT block;
+next_block: block | INDENT block | block INDENT;
 
 // Loop structures
 loop: whileLoop | forLoop;
@@ -45,7 +47,7 @@ loop: whileLoop | forLoop;
 whileLoop: WHILE condition COLON block;
 
 forLoop: FOR IDENTIFIER IN rangeCall COLON block |
-            FOR IDENTIFIER IN expr COLON block;
+            FOR IDENTIFIER IN IDENTIFIER COLON block;
 
 // Condition expression
 condition: expr comparisonOp expr
